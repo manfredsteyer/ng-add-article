@@ -250,7 +250,7 @@ After this, we can install our logger library:
 ng add @my/logger-lib
 ```
 
-![ng add](ng-add-logger.png)
+![ng add](ng-add.png)
 
 When everything worked, we should find our npm installed library in the ``node_modules/@my/logger-lib`` folder and the generated ``hello.txt`` in the root.
 
