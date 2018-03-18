@@ -281,6 +281,7 @@ export function addDeclarationToAppModule(appModule: string): Rule {
         return host;
       }
   
+      // Part I: Construct path and read file
       const modulePath = normalize('/' + appModule);
   
       const text = host.read(modulePath);
@@ -290,8 +291,10 @@ export function addDeclarationToAppModule(appModule: string): Rule {
       const sourceText = text.toString('utf-8');
       const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
   
+      // Part II: Find out, what to change
       const changes = addSymbolToNgModuleMetadata(source, modulePath, 'imports', 'LoggerModule', '@my/logger-lib', 'LoggerModule.forRoot({ enableDebug: true })');
 
+      // Part III: Apply changes
       const recorder = host.beginUpdate(modulePath);
       for (const change of changes) {
         if (change instanceof InsertChange) {
