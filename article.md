@@ -1,6 +1,6 @@
 # Custom Schematics - Part IV: Frictionless Library Setup with the Angular CLI and Schematics
 
-It's always the same: After npm installing a new library, we have to follow a readme step by step to include it into our application. Usually this involves creating configuration objects, referencing css files and importing Angular Modules. As such tasks aren't fun at all it would be nice to automate this.
+It's always the same: After npm installing a new library, we have to follow a readme step by step to include it into our application. Usually this involves creating configuration objects, referencing css files, and importing Angular Modules. As such tasks aren't fun at all it would be nice to automate this.
 
 This is exactly what the Angular CLI supports beginning with Version 6 (Beta 5). It gives us a new ``ng add`` command that fetches an npm package and sets it up with a schematic -- a code generator written with the CLI's scaffolding tool [Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2). To support this, the package just needs to name this schematic ``ng-add``.
 
@@ -47,7 +47,7 @@ export class AppComponent {
 
 To prevent the need for importing the module manually and for remembering the structure of the configuration object, the following sections present a schematic for this.
 
-## Getting started
+## Getting Started
 
 To get started, you need to install version 6 of the Angular CLI. Make sure to fetch Beta 5 or higher:
 
@@ -87,13 +87,14 @@ schematics blank --name=schematics
 
 This generates the following folder structure:
 
-![Generated Schematic](blank-schematic.png){:width=300}
 
-The folder ``src/schematic`` contains an empty schematic. As ``ng add`` looks for an ``ng-add`` schematic, let's rename this folder:
+<img src="blank-schematic.png" width="150" alt="Generated Schematic">
 
-![Renamed Schematic](renamed-schematic.png)
+The folder ``src/schematics`` contains an empty schematic. As ``ng add`` looks for an ``ng-add`` schematic, let's rename it:
 
-The ``index.ts`` file in the ``ng-add`` folder contains a factory function. It generates a rule setting up the library. I've adjusted its name to ``ngAdd`` and added a line for generating a ``hello.txt``.
+<img src="renamed-schematic.png" width="150" alt="Renamed Schematic">
+
+In the ``index.ts`` file in the ``ng-add`` folder we find a factory function. It returns a ``Rule`` for code generation. I've adjusted its name to ``ngAdd`` and added a line for generating a ``hello.txt``.
 
 ```TypeScript
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
@@ -124,7 +125,7 @@ As our schematic will be looked up in the ``collection.json`` later, we have als
 
 Now, the name ``ng-add`` points to our rule -- the ``ngAdd`` function in the ``ng-add/index.ts`` file. 
 
-## Adjusting the build script
+## Adjusting the Build Script
 
 In the current project, ``ng-packagr`` is configured to put the library build out of our sources in the folder ``dist/lib``. The respective settings can be found within the ``ngPackage`` node in the ``package.json``. When I'm mentioning  ``package.json`` here, I'm referring to the project root's ``package.json`` and not to the generated one in the ``schematics`` folder.
 
@@ -169,9 +170,9 @@ When the CLI tries to find our ``ng-add`` schematic, it looks up the ``schematic
 }
 ```
 
-Please note that the mentioned path is relative to the folder ``lib`` where ``ng-packagr`` copies the ``package.json`` to.
+Please note that the mentioned path is relative to the folder ``lib`` where ``ng-packagr`` copies the ``package.json`` over.
 
-## Test the Schematic directly
+## Test the Schematic Directly
 
 For testing the schematic, let's build the library:
 
@@ -187,7 +188,7 @@ schematics .:ng-add
 
 ![Testing the ng-add schematic](schematics-ng-add.png)
 
-Even though the output mentions that a ``hello.txt`` is generated you won't find it, because when executing a schematic locally it's performing a dry-run. To get the file, set the debug switch to false:
+Even though the output mentions that a ``hello.txt`` is generated, you won't find it because when executing a schematic locally it's performing a dry-run. To get the file, set the ``debug`` switch to ``false``:
 
 ```
 schematics .:ng-add --debug false
@@ -202,13 +203,13 @@ ng add ..\logger-lib\dist\lib
 ```
 ![ng add with relative path](ng-add-relative.png)
 
-Make sure, to point to our ``dist/lib`` folder. Because I'm working on Windows, I've used backslashes here. For Linux or Mac, replace them with forward slashes. 
+Make sure that you point to our ``dist/lib`` folder. Because I'm working on Windows, I've used backslashes here. For Linux or Mac, replace them with forward slashes. 
 
 When everything worked, we should see a ``hello.txt``.
 
-## Test the Schematic via an npm registry
+## Test the Schematic via an npm Registry
 
-Now, as we know that everything works locally, let's also check whether it works when we install it via an npm registry. For this, we can for instance use verdaccio -- a very lightweight node-based implementation. You can directly npm install it:
+As we know now that everything works locally, let's also check whether it works when we install it via an npm registry. For this, we can for instance use ``verdaccio`` -- a very lightweight node-based implementation. You can directly npm install it:
 
 ```
 npm install -g verdaccio
@@ -228,7 +229,7 @@ Before we can publish our library to verdaccio, we have to remove the ``private`
 }
 ```
 
-To publish your library to this verdaccio instance, move to your project's ``dist/lib`` folder and run ``npm publish``:
+To publish the library, move to your project's ``dist/lib`` folder and run ``npm publish``:
 
 ```
 npm publish --registry http://localhost:4873
@@ -236,13 +237,13 @@ npm publish --registry http://localhost:4873
 
 Don't forget to point to ``verdaccio`` using the registry switch.
 
-Now, let's switch over to the generated demo-app. To make sure our registry is used, create an ``.npmrc`` file in the project's root:
+Now, let's switch over to the generated ``demo-app``. To make sure our registry is used, create an ``.npmrc`` file in the project's root:
 
 ```
 @my:registry=http://localhost:4873
 ```
 
-This entry makes sure that libraries with the ``@my`` scope are looked up in our verdaccio instance.
+This entry causes npm to look up each library with the ``@my`` scope in our verdaccio instance.
 
 After this, we can install our logger library:
 
@@ -252,7 +253,7 @@ ng add @my/logger-lib
 
 ![ng add](ng-add.png)
 
-When everything worked, we should find our npm installed library in the ``node_modules/@my/logger-lib`` folder and the generated ``hello.txt`` in the root.
+When everything worked, we should find our library in the ``node_modules/@my/logger-lib`` folder and the generated ``hello.txt`` in the root.
 
 
 ## Extend our Schematic
@@ -261,7 +262,7 @@ So far, we've created a library with a prototypical ``ng-add`` schematic that is
 
 Frankly, modifying existing code in a safe way is a bit more complicated than what we've seen before. But I'm sure, we can accomplish this together ;-).
 
-For this challenge, our schematic has to modify the project's ``app.module.ts`` file. The good message is, that this is a common task the CLI performs and hence its schematics already contain the necessary logic. However, when writing this, the respective routines have not been part of the public API, hence we have to fork it.
+For this endeavour, our schematic has to modify the project's ``app.module.ts`` file. The good message is, that this is a common task the CLI performs and hence its schematics already contain the necessary logic. However, when writing this, the respective routines have not been part of the public API and so we have to fork it.
 
 For this, I've checked out the [Angular DevKit](https://github.com/angular/devkit) and copied the contents of its ``packages/schematics/angular/utility`` folder to my library project's ``schematics/src/utility`` folder. Because those files are subject to change, I've conserved the current state [here](https://github.com/manfredsteyer/devkit-schmatics-utility-03-2018.git).
 
@@ -304,13 +305,13 @@ export function addDeclarationToAppModule(appModule: string): Rule {
   }
 ```
 
-Most of this function is borrowed from the Angular DevKit. It reads the module file and calls the ``addSymbolToNgModuleMetadata`` utility function copied from the DevKit. This function finds out what to modify. Those changes are applied to the file.
+Most of this function has been "borrowed" from the Angular DevKit. It reads the module file and calls the ``addSymbolToNgModuleMetadata`` utility function copied from the DevKit. This function finds out what to modify. Those changes are applied to the file using the ``recorder`` object and its ``insertLeft`` method.
 
 To make this work, I had to tweak the copied ``addSymbolToNgModuleMetadata`` function a bit. Originally, it imported the mentioned Angular module just by mentioning its name. My modified version has an additional parameter which takes an expression like ``LoggerModule.forRoot({ enableDebug: true })``. This expression is put into the module's ``imports`` array.
 
-Even though this just takes some minor changes, the whole ``addSymbolToNgModuleMetadata`` method is rather long. That's why I'm not showing it in this article, but you can look it up [here](https://github.com/manfredsteyer/schematics-ng-add/blob/master/schematics/src/utility/ast-utils.ts).
+Even though this just takes some minor changes, the whole ``addSymbolToNgModuleMetadata`` method is rather long. That's why I'm not printing it here but you can look it up [in my solution](https://github.com/manfredsteyer/schematics-ng-add/blob/master/schematics/src/utility/ast-utils.ts).
 
-After this modification, we can call our ``addDeclarationToAppModule`` rule factory to our schematic:
+After this modification, we can call  ``addDeclarationToAppModule`` in our schematic:
 
 ```TypeScript
 import { Rule, SchematicContext, Tree, chain, branchAndMerge } from '@angular-devkit/schematics';
@@ -332,7 +333,7 @@ export function ngAdd(): Rule {
 }
 ```
 
-Now, we can test our Schematic as shown above. To re-publish it to our npm registry, we have to increase the version number in the ``package.json``. For this, you can make use of ``npm version``:
+Now, we can test our Schematic as shown above. To re-publish it to the npm registry, we have to increase the version number in the ``package.json``. For this, you can make use of ``npm version``:
 
 ```
 npm version minor
@@ -344,7 +345,7 @@ After re-building it (``npm run build:lib``) and publishing the new version to v
 
 ## Conclusion
 
-An Angular-based library can provide an ``ng-add`` Schematic for setting it up. When installing the library using ``ng add``, the CLI calls this schematic automatically. This innovation has a lot of potential and will lower the entry barrier for installing libraries in the future.
+An Angular-based library can provide an ``ng-add`` Schematic for setting it up. When installing the library using ``ng add``, the CLI calls this schematic automatically. This innovation has a lot of potential and will dramatically lower the entry barrier for installing libraries in the future.
 
 
 
