@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 12px; line-height: 22px; word-wrap: break-word; } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } img { max-width: 100%; max-height: 100%; } a { color: #4080D0; text-decoration: none; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } a:hover { color: #4080D0; text-decoration: underline; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left: 5px solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ .vscode-light { color: rgb(30, 30, 30); } .vscode-dark { color: #DDD; } .vscode-high-contrast { color: white; } .vscode-light code { color: #A31515; } .vscode-dark code { color: #D7BA7D; } .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } .vscode-light blockquote, .vscode-dark blockquote { background: rgba(127, 127, 127, 0.1); border-color: rgba(0, 122, 204, 0.5); } .vscode-high-contrast blockquote { background: transparent; border-color: #fff; }
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+ul.contains-task-list { padding-left: 0; } ul ul.contains-task-list { padding-left: 40px; } .task-list-item { list-style-type: none; } .task-list-item-checkbox { vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="custom-schematics---part-iv-frictionless-library-setup-with-the-angular-cli-and-schematics">Custom Schematics - Part IV: Frictionless Library Setup with the Angular CLI and Schematics</h1>
+<p>It's always the same: After npm installing a new library, we have to follow a readme step by step to include it into our application. Usually this involves creating configuration objects, referencing css files and importing Angular Modules. As such tasks aren't fun at all it would be nice to automate this.</p>
+<p>This is exactly what the Angular CLI supports beginning with Version 6 (Beta 5). It gives us a new <code>ng add</code> command that fetches an npm package and sets it up with a schematic -- a code generator written with the CLI's scaffolding tool <a href="https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2">Schematics</a>. To support this, the package just needs to name this schematic <code>ng-add</code>.</p>
+<p>In this article, I show you how to create such a package. For this, I'll use <a href="https://github.com/dherges/ng-packagr">ng-packagr</a> and a custom schematic. You can find the <a href="https://github.com/manfredsteyer/schematics-ng-add">source code</a> in <a href="https://github.com/manfredsteyer/schematics-ng-add">my GitHub account</a>.</p>
+<p>If you haven't got an overview to Schematics so far, you should lookup the well written <a href="%5BSchematics%5D(https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2)">introduction in the Angular Blog</a> before proceeding here.</p>
+<h2 id="goal">Goal</h2>
+<p>To demonstrate how to leverage <code>ng add</code>, I'm using an example with a very simple logger library here. It is complex enough to explain how everything works and not indented for production. After installing it, one has to import it into the root module using <code>forRoot</code>:</p>
+<pre class="hljs"><code><div>[...]
+<span class="hljs-keyword">import</span> { LoggerModule } from <span class="hljs-string">'@my/logger-lib'</span>;
+
+@NgModule({
+  imports: [
+    [...],
+    LoggerModule.forRoot({ enableDebug: <span class="hljs-literal">true</span> })
+  ],
+  [...]
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppModule { }
+</div></code></pre>
+<p>As you see in the previous listing, <code>forRoot</code> takes a configuration object. After this, the application can get hold of the <code>LoggerService</code> and use it:</p>
+<pre class="hljs"><code><div>[...]
+<span class="hljs-keyword">import</span> { LoggerService } from <span class="hljs-string">'@my/logger-lib'</span>;
+
+@Component({
+  selector: <span class="hljs-string">'app-root'</span>,
+  templateUrl: <span class="hljs-string">'./app.component.html'</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppComponent {
+
+  <span class="hljs-keyword">constructor</span>(private logger: LoggerService) {
+    logger.debug(<span class="hljs-string">'Hello World!'</span>);
+    logger.log(<span class="hljs-string">'Application started'</span>);
+  }
+}
+</div></code></pre>
+<p>To prevent the need for importing the module manually and for remembering the structure of the configuration object, the following sections present a schematic for this.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>To get started, you need to install version 6 of the Angular CLI. Make sure to fetch Beta 5 or higher:</p>
+<pre><code>npm i -g @angular/cli@~6.0.0-beta
+</code></pre>
+<p>You also need the Schematics CLI:</p>
+<pre><code>npm install -g @angular-devkit/schematics-cli
+</code></pre>
+<p>The above mentioned logger library can be found in the <code>start</code> branch of my sample:</p>
+<pre><code>git clone https://github.com/manfredsteyer/schematics-ng-add
+cd schematics-ng-add
+git checkout start
+</code></pre>
+<p>After checking out the <code>start</code> branch, npm install its dependencies:</p>
+<pre><code>npm install
+</code></pre>
+<p>If you want to learn more about setting up a library project from scratch, I recommend the resources outlined in the <a href="https://github.com/dherges/ng-packagr">readme of ng-packagr</a>.</p>
+<h2 id="adding-an-ng-add-schematic">Adding an ng-add Schematic</h2>
+<p>As we have everything in place now, let's add a schematics project to the library. For this, we just need to run the <code>blank</code> Schematics in the project's root:</p>
+<pre><code>schematics blank --name=schematics
+</code></pre>
+<p>This generates the following folder structure:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/blank-schematic.png" alt="Generated Schematic">{:width=300}</p>
+<p>The folder <code>src/schematic</code> contains an empty schematic. As <code>ng add</code> looks for an <code>ng-add</code> schematic, let's rename this folder:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/renamed-schematic.png" alt="Renamed Schematic"></p>
+<p>The <code>index.ts</code> file in the <code>ng-add</code> folder contains a factory function. It generates a rule setting up the library. I've adjusted its name to <code>ngAdd</code> and added a line for generating a <code>hello.txt</code>.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Rule, SchematicContext, Tree } from <span class="hljs-string">'@angular-devkit/schematics'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ngAdd</span>(<span class="hljs-params"></span>): <span class="hljs-title">Rule</span> </span>{
+  <span class="hljs-keyword">return</span> (tree: Tree, _context: SchematicContext) =&gt; {
+    tree.create(<span class="hljs-string">'hello.txt'</span>, <span class="hljs-string">'Hello World!'</span>);
+    <span class="hljs-keyword">return</span> tree;
+  };
+}
+</div></code></pre>
+<p>The generation of the <code>hello.txt</code> file represents the tasks for setting up the library. We will replace it later with a respective implementation.</p>
+<p>As our schematic will be looked up in the <code>collection.json</code> later, we have also to adjust it:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"$schema"</span>: <span class="hljs-string">"../node_modules/@angular-devkit/schematics/collection-schema.json"</span>,
+  <span class="hljs-attr">"schematics"</span>: {
+    <span class="hljs-attr">"ng-add"</span>: {
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Initializes Library"</span>,
+      <span class="hljs-attr">"factory"</span>: <span class="hljs-string">"./ng-add/index#ngAdd"</span>
+    }
+  }
+}
+</div></code></pre>
+<p>Now, the name <code>ng-add</code> points to our rule -- the <code>ngAdd</code> function in the <code>ng-add/index.ts</code> file.</p>
+<h2 id="adjusting-the-build-script">Adjusting the build script</h2>
+<p>In the current project, <code>ng-packagr</code> is configured to put the library build out of our sources in the folder <code>dist/lib</code>. The respective settings can be found within the <code>ngPackage</code> node in the <code>package.json</code>. When I'm mentioning  <code>package.json</code> here, I'm referring to the project root's <code>package.json</code> and not to the generated one in the <code>schematics</code> folder.</p>
+<p>To make use of our schematic, we have to make sure it is compiled and copied over to this folder. For the latter task, I'm using the <code>cpr</code> npm package we need to install in the project's root:</p>
+<pre><code>npm install cpr --save-dev
+</code></pre>
+<p>In order to automate the mentioned tasks, add the following scripts to the <code>package.json</code>:</p>
+<pre class="hljs"><code><div>[...]
+<span class="hljs-string">"scripts"</span>: {
+  [...],
+  <span class="hljs-attr">"build:schematics"</span>: <span class="hljs-string">"tsc -p schematics/tsconfig.json"</span>,
+  <span class="hljs-attr">"copy:schematics"</span>: <span class="hljs-string">"cpr schematics/src dist/lib/schematics --deleteFirst"</span>,
+  [...]
+},
+[...]
+</div></code></pre>
+<p>Also, extend the <code>build:lib</code> script so that the newly introduced scripts are called:</p>
+<pre class="hljs"><code><div>[...]
+<span class="hljs-string">"scripts"</span>: {
+  [...]
+  <span class="hljs-attr">"build:lib"</span>: <span class="hljs-string">"ng-packagr -p package.json &amp;&amp; npm run build:schematics &amp;&amp; npm run copy:schematics"</span>,
+  [...]
+},
+[...]
+</div></code></pre>
+<p>When the CLI tries to find our <code>ng-add</code> schematic, it looks up the <code>schematics</code> field in the <code>package.json</code>. By definition it points to the <code>collection.json</code> which in turn points to the provided schematics. Hence, let's add this field to our package.json too:</p>
+<pre class="hljs"><code><div>{
+  [...],
+  <span class="hljs-attr">"schematics"</span>: <span class="hljs-string">"./schematics/collection.json"</span>,
+  [...]
+}
+</div></code></pre>
+<p>Please note that the mentioned path is relative to the folder <code>lib</code> where <code>ng-packagr</code> copies the <code>package.json</code> to.</p>
+<h2 id="test-the-schematic-directly">Test the Schematic directly</h2>
+<p>For testing the schematic, let's build the library:</p>
+<pre><code>npm run build:lib
+</code></pre>
+<p>After this, move to the <code>dist/lib</code> folder and run the schematic:</p>
+<pre><code>schematics .:ng-add
+</code></pre>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/schematics-ng-add.png" alt="Testing the ng-add schematic"></p>
+<p>Even though the output mentions that a <code>hello.txt</code> is generated you won't find it, because when executing a schematic locally it's performing a dry-run. To get the file, set the debug switch to false:</p>
+<pre><code>schematics .:ng-add --debug false
+</code></pre>
+<p>After we've seen that this works, generate a new project with the CLI to find out whether our library plays together with the new <code>ng add</code>:</p>
+<pre><code>ng new demo-app
+cd demo-app
+ng add ..\logger-lib\dist\lib
+</code></pre>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/ng-add-relative.png" alt="ng add with relative path"></p>
+<p>Make sure, to point to our <code>dist/lib</code> folder. Because I'm working on Windows, I've used backslashes here. For Linux or Mac, replace them with forward slashes.</p>
+<p>When everything worked, we should see a <code>hello.txt</code>.</p>
+<h2 id="test-the-schematic-via-an-npm-registry">Test the Schematic via an npm registry</h2>
+<p>Now, as we know that everything works locally, let's also check whether it works when we install it via an npm registry. For this, we can for instance use verdaccio -- a very lightweight node-based implementation. You can directly npm install it:</p>
+<pre><code>npm install -g verdaccio
+</code></pre>
+<p>After this, it is started by simply running the <code>verdaccio</code> command:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/run-verdaccio.png" alt="Running verdaccio"></p>
+<p>Before we can publish our library to verdaccio, we have to remove the <code>private</code> flag from our <code>package.json</code> or at least set it to <code>false</code>:</p>
+<pre class="hljs"><code><div>{
+  [...]
+  <span class="hljs-attr">"private"</span>: <span class="hljs-literal">false</span>,
+  [...]
+}
+</div></code></pre>
+<p>To publish your library to this verdaccio instance, move to your project's <code>dist/lib</code> folder and run <code>npm publish</code>:</p>
+<pre><code>npm publish --registry http://localhost:4873
+</code></pre>
+<p>Don't forget to point to <code>verdaccio</code> using the registry switch.</p>
+<p>Now, let's switch over to the generated demo-app. To make sure our registry is used, create an <code>.npmrc</code> file in the project's root:</p>
+<pre><code>@my:registry=http://localhost:4873
+</code></pre>
+<p>This entry makes sure that libraries with the <code>@my</code> scope are looked up in our verdaccio instance.</p>
+<p>After this, we can install our logger library:</p>
+<pre><code>ng add @my/logger-lib
+</code></pre>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/ng-add.png" alt="ng add"></p>
+<p>When everything worked, we should find our npm installed library in the <code>node_modules/@my/logger-lib</code> folder and the generated <code>hello.txt</code> in the root.</p>
+<h2 id="extend-our-schematic">Extend our Schematic</h2>
+<p>So far, we've created a library with a prototypical <code>ng-add</code> schematic that is automatically executed when installing it with <code>ng add</code>. As we know that our setup works, let's extend the schematic to setup the <code>LoggerModule</code> as shown in the beginning.</p>
+<p>Frankly, modifying existing code in a safe way is a bit more complicated than what we've seen before. But I'm sure, we can accomplish this together ;-).</p>
+<p>For this challenge, our schematic has to modify the project's <code>app.module.ts</code> file. The good message is, that this is a common task the CLI performs and hence its schematics already contain the necessary logic. However, when writing this, the respective routines have not been part of the public API, hence we have to fork it.</p>
+<p>For this, I've checked out the <a href="https://github.com/angular/devkit">Angular DevKit</a> and copied the contents of its <code>packages/schematics/angular/utility</code> folder to my library project's <code>schematics/src/utility</code> folder. Because those files are subject to change, I've conserved the current state <a href="https://github.com/manfredsteyer/devkit-schmatics-utility-03-2018.git">here</a>.</p>
+<p>Now, let's add a Schematics rule for modifying the <code>AppModule</code>. For this, move to our <code>schematics/src/ng-add</code> folder and add a <code>add-declaration-to-module.rule.ts</code> file. This file gets an <code>addDeclarationToAppModule</code> function that takes the path of the <code>app.module.ts</code> and creates a Rule for updating it:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Rule, Tree, SchematicsException } from <span class="hljs-string">'@angular-devkit/schematics'</span>;
+<span class="hljs-keyword">import</span> { normalize } from <span class="hljs-string">'@angular-devkit/core'</span>;
+<span class="hljs-keyword">import</span> * as ts from <span class="hljs-string">'typescript'</span>;
+<span class="hljs-keyword">import</span> { addSymbolToNgModuleMetadata } from <span class="hljs-string">'../utility/ast-utils'</span>;
+<span class="hljs-keyword">import</span> { InsertChange } from <span class="hljs-string">"../utility/change"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addDeclarationToAppModule</span>(<span class="hljs-params">appModule: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">Rule</span> </span>{
+    <span class="hljs-keyword">return</span> (host: Tree) =&gt; {
+      <span class="hljs-keyword">if</span> (!appModule) {
+        <span class="hljs-keyword">return</span> host;
+      }
+  
+      <span class="hljs-keyword">const</span> modulePath = normalize(<span class="hljs-string">'/'</span> + appModule);
+  
+      <span class="hljs-keyword">const</span> text = host.read(modulePath);
+      <span class="hljs-keyword">if</span> (text === <span class="hljs-literal">null</span>) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> SchematicsException(<span class="hljs-string">`File <span class="hljs-subst">${modulePath}</span> does not exist.`</span>);
+      }
+      <span class="hljs-keyword">const</span> sourceText = text.toString(<span class="hljs-string">'utf-8'</span>);
+      <span class="hljs-keyword">const</span> source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, <span class="hljs-literal">true</span>);
+  
+      <span class="hljs-keyword">const</span> changes = addSymbolToNgModuleMetadata(source, modulePath, <span class="hljs-string">'imports'</span>, <span class="hljs-string">'LoggerModule'</span>, <span class="hljs-string">'@my/logger-lib'</span>, <span class="hljs-string">'LoggerModule.forRoot({ enableDebug: true })'</span>);
+
+      <span class="hljs-keyword">const</span> recorder = host.beginUpdate(modulePath);
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> change of changes) {
+        <span class="hljs-keyword">if</span> (change <span class="hljs-keyword">instanceof</span> InsertChange) {
+          recorder.insertLeft(change.pos, change.toAdd);
+        }
+      }
+      host.commitUpdate(recorder);
+  
+      <span class="hljs-keyword">return</span> host;
+    };
+  }
+</div></code></pre>
+<p>Most of this function is borrowed from the Angular DevKit. It reads the module file and calls the <code>addSymbolToNgModuleMetadata</code> utility function copied from the DevKit. This function finds out what to modify. Those changes are applied to the file.</p>
+<p>To make this work, I had to tweak the copied <code>addSymbolToNgModuleMetadata</code> function a bit. Originally, it imported the mentioned Angular module just by mentioning its name. My modified version has an additional parameter which takes an expression like <code>LoggerModule.forRoot({ enableDebug: true })</code>. This expression is put into the module's <code>imports</code> array.</p>
+<p>Even though this just takes some minor changes, the whole <code>addSymbolToNgModuleMetadata</code> method is rather long. That's why I'm not showing it in this article, but you can look it up <a href="https://github.com/manfredsteyer/schematics-ng-add/blob/master/schematics/src/utility/ast-utils.ts">here</a>.</p>
+<p>After this modification, we can call our <code>addDeclarationToAppModule</code> rule factory to our schematic:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Rule, SchematicContext, Tree, chain, branchAndMerge } from <span class="hljs-string">'@angular-devkit/schematics'</span>;
+<span class="hljs-keyword">import</span> { addDeclarationToAppModule } from <span class="hljs-string">'./add-declaration-to-module.rule'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ngAdd</span>(<span class="hljs-params"></span>): <span class="hljs-title">Rule</span> </span>{
+  
+  <span class="hljs-keyword">return</span> (tree: Tree, _context: SchematicContext) =&gt; {
+
+    <span class="hljs-keyword">const</span> appModule = <span class="hljs-string">'/src/app/app.module.ts'</span>;
+
+    <span class="hljs-keyword">return</span> chain([
+      branchAndMerge(chain([
+        addDeclarationToAppModule(appModule)
+      ])),
+    ])(tree, _context);
+
+  };
+}
+</div></code></pre>
+<p>Now, we can test our Schematic as shown above. To re-publish it to our npm registry, we have to increase the version number in the <code>package.json</code>. For this, you can make use of <code>npm version</code>:</p>
+<pre><code>npm version minor
+</code></pre>
+<p>After re-building it (<code>npm run build:lib</code>) and publishing the new version to verdaccio (<code>npm publish --registry http://localhost:4873</code>), we can add it to our <code>demo app</code>:</p>
+<p><img src="file:///c%3A/Users/Manfred/Documents/artikel/Angular_Schematics/add2/article/ng-add-logger.png" alt="Add extended library"></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>An Angular-based library can provide an <code>ng-add</code> Schematic for setting it up. When installing the library using <code>ng add</code>, the CLI calls this schematic automatically. This innovation has a lot of potential and will lower the entry barrier for installing libraries in the future.</p>
+
+    </body>
+    </html>

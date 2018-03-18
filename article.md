@@ -1,16 +1,16 @@
-# Frictionless Library Setup with the Angular CLI and Schematics
+# Custom Schematics - Part IV: Frictionless Library Setup with the Angular CLI and Schematics
 
-It's always the same: After npm installing a new library, we have to follow a readme step by step to include it into our application. Usually this involves creating configuration objects, referencing css files and importing Angular Modules. As this isn't fun at all it would be nice to automate such tasks.
+It's always the same: After npm installing a new library, we have to follow a readme step by step to include it into our application. Usually this involves creating configuration objects, referencing css files and importing Angular Modules. As such tasks aren't fun at all it would be nice to automate this.
 
-This is exactly what the Angular CLI supports beginning with Version 6 (Beta 5). It gives us a new ``ng add`` command that fetches an npm package and sets it up with a schematic -- a code generator written with the CLI's scaffolding tool [Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2). To support this, the package just needs name this schematic ``ng-add``.
+This is exactly what the Angular CLI supports beginning with Version 6 (Beta 5). It gives us a new ``ng add`` command that fetches an npm package and sets it up with a schematic -- a code generator written with the CLI's scaffolding tool [Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2). To support this, the package just needs to name this schematic ``ng-add``.
 
 In this article, I show you how to create such a package. For this, I'll use [ng-packagr](https://github.com/dherges/ng-packagr) and a custom schematic. You can find the [source code](https://github.com/manfredsteyer/schematics-ng-add) in [my GitHub account](https://github.com/manfredsteyer/schematics-ng-add).
 
-If you haven't got an overview about Schematics so far, you should lookup the well written [introduction in the Angular Blog]([Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2)) before proceeding here.
+If you haven't got an overview to Schematics so far, you should lookup the well written [introduction in the Angular Blog]([Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2)) before proceeding here.
 
 ## Goal
 
-To demonstrate how to leverage ``ng add``, I'm using a sample of a logger library here. After installing it, one has to import it into the root module using ``forRoot``:
+To demonstrate how to leverage ``ng add``, I'm using an example with a very simple logger library here. It is complex enough to explain how everything works and not indented for production. After installing it, one has to import it into the root module using ``forRoot``:
 
 ```TypeScript
 [...]
@@ -26,7 +26,7 @@ import { LoggerModule } from '@my/logger-lib';
 export class AppModule { }
 ```
 
-As you saw in the last listing, ``forRoot`` takes a configuration object. After this, the application can get hold of the ``LoggerService`` and use it:
+As you see in the previous listing, ``forRoot`` takes a configuration object. After this, the application can get hold of the ``LoggerService`` and use it:
 
 ```TypeScript
 [...]
@@ -45,7 +45,7 @@ export class AppComponent {
 }
 ```
 
-To prevent the need for importing the module manually and for remembering the structure of the configuration object, the following sections will present a schematic for this.
+To prevent the need for importing the module manually and for remembering the structure of the configuration object, the following sections present a schematic for this.
 
 ## Getting started
 
@@ -69,7 +69,7 @@ cd schematics-ng-add
 git checkout start
 ```
 
-After checking out the start branch, npm install its dependencies:
+After checking out the ``start`` branch, npm install its dependencies:
 
 ```
 npm install
@@ -87,7 +87,7 @@ schematics blank --name=schematics
 
 This generates the following folder structure:
 
-![Generated Schematic](blank-schematic.png)
+![Generated Schematic](blank-schematic.png){:width=300}
 
 The folder ``src/schematic`` contains an empty schematic. As ``ng add`` looks for an ``ng-add`` schematic, let's rename this folder:
 
