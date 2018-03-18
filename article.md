@@ -6,7 +6,7 @@ This is exactly what the Angular CLI supports beginning with Version 6 (Beta 5).
 
 In this article, I show you how to create such a package. For this, I'll use [ng-packagr](https://github.com/dherges/ng-packagr) and a custom schematic. You can find the [source code](https://github.com/manfredsteyer/schematics-ng-add) in [my GitHub account](https://github.com/manfredsteyer/schematics-ng-add).
 
-If you haven't got an overview to Schematics so far, you should lookup the well written [introduction in the Angular Blog][Schematics](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2) before proceeding here.
+If you haven't got an overview to Schematics so far, you should lookup the well written [introduction in the Angular Blog](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2) before proceeding here.
 
 ## Goal
 
