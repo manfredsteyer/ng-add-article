@@ -40,7 +40,7 @@ To adopt existing projects to my breaking change, I'm going to create a schemati
 <img src="./img/update-schematic.png" width="250" alt="Folder update for new schematic">
 
 
- This new folder gets an ``index.ts`` when a rule factory:
+ This new folder gets an ``index.ts`` with a rule factory:
 
 ```typescript
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
@@ -112,7 +112,7 @@ We also need to increase the version within the ``package.json``. As my schemati
 
 ## Test, Publish, and Update
 
-To test the migration schematic, we need a demo Angular application using the old version of the logger-lib. Some information about this can be found in my [last blog post]((http://www.softwarearchitekt.at/post/2018/03/20/custom-schematics-part-iv-frictionless-library-setup-with-the-angular-cli-and-schematics.aspx). This post also describes, how to setup a simple npm registry that provides the logger-lib and how to use it in your demo project.
+To test the migration schematic, we need a demo Angular application using the old version of the logger-lib. Some information about this can be found in my [last blog post](http://www.softwarearchitekt.at/post/2018/03/20/custom-schematics-part-iv-frictionless-library-setup-with-the-angular-cli-and-schematics.aspx). This post also describes, how to setup a simple npm registry that provides the logger-lib and how to use it in your demo project.
 
 Make sure to use the latest versions of ``@angular/cli`` and its dependency ``@angular-devkit/schematics``. When I wrote this up, I've used version ``6.0.0-rc.4`` of the CLI and version ``0.5.6`` of the schematics package. However, this came with some issues especially on Windows. Nether the less, I expect those issues to vanish, once we have version 6.
 
